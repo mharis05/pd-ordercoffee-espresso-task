@@ -41,7 +41,7 @@ public class EspressoWorkshopTest {
         // Generate Test data
         TestData testData = new TestData();
         // Save expected test data for validation
-        Integer espressoShots = testData.getEspressoShotCount();
+        Integer espressoShots = 2;
         Boolean isChocolate = false;
         String milkType = testData.milkSelectionObject.LOWFAT;
         String milkTreatment = testData.milkTreatmentObject.STEAMED;
