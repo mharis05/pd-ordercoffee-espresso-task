@@ -27,21 +27,25 @@ public class TestData implements MilkTreatment, MilkSelection {
         Random rand = new Random();
         this.userData = new UserData();
         this.espressoShotCount = rand.nextInt(3) + 1;
-        this.milkType = getRandomMilkType(MilkTreatment.milkTypes);
-        this.milkTreatment = getRandomMilkSelection(MilkSelection.milkSelections);
+        this.milkType = getRandomMilkType(MilkSelection.milkSelections);
+        this.milkTreatment = getRandomMilkTreatment(MilkTreatment.milkTreatments);
     }
 
     @Override
     public String getRandomMilkType(String[] milkTypes) {
         Random generator = new Random();
-        int randomIndex = generator.nextInt(MilkTreatment.milkTypes.length);
-        return MilkTreatment.milkTypes[randomIndex];
+        int randomIndex = generator.nextInt(MilkSelection.milkSelections.length);
+        return MilkSelection.milkSelections[randomIndex];
     }
 
     @Override
-    public String getRandomMilkSelection(String[] milkSelections) {
+    public String getRandomMilkTreatment(String[] milkTreatment) {
         Random generator = new Random();
-        int randomIndex = generator.nextInt(MilkSelection.milkSelections.length);
-        return MilkSelection.milkSelections[randomIndex];
+        int randomIndex = generator.nextInt(MilkTreatment.milkTreatments.length);
+        return MilkTreatment.milkTreatments[randomIndex];
+    }
+
+    public String getMilkType() {
+        return milkType;
     }
 }

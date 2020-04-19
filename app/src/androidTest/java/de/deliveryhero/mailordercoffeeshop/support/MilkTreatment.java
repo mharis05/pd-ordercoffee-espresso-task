@@ -5,7 +5,7 @@ public interface MilkTreatment {
     String SOY = "Foamed";
     String WHIPPED = "Whipped";
     String SCALDED = "Scalded";
-    String[] milkTypes = {STEAMED, SOY, WHIPPED, SCALDED};
+    String[] milkTreatments = {STEAMED, SOY, WHIPPED, SCALDED};
 
     public String getRandomMilkType(String[] milkTypes);
 }
