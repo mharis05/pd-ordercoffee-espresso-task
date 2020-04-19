@@ -1,5 +1,6 @@
 package de.deliveryhero.mailordercoffeeshop;
 
+import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.rule.ActivityTestRule;
 
 import org.junit.Rule;
@@ -8,6 +9,7 @@ import org.junit.Test;
 import de.deliveryhero.mailordercoffeeshop.support.Support;
 import de.deliveryhero.mailordercoffeeshop.support.TestData;
 
+import static android.app.PendingIntent.getActivity;
 import static androidx.test.espresso.Espresso.onData;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
@@ -15,14 +17,19 @@ import static androidx.test.espresso.action.ViewActions.closeSoftKeyboard;
 import static androidx.test.espresso.action.ViewActions.scrollTo;
 import static androidx.test.espresso.action.ViewActions.typeText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
+import static androidx.test.espresso.matcher.RootMatchers.withDecorView;
 import static androidx.test.espresso.matcher.ViewMatchers.isChecked;
+import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withParent;
 import static androidx.test.espresso.matcher.ViewMatchers.withSubstring;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.not;
 import static org.hamcrest.core.AllOf.allOf;
+
+
 
 public class EspressoWorkshopTest {
 
@@ -72,6 +79,24 @@ public class EspressoWorkshopTest {
         onView(withId(R.id.email_text_box)).perform(typeText(testData.getUserData().getUserEmail()), closeSoftKeyboard());
         onView(withId(R.id.custom_order_name_box)).perform(typeText(testData.getUserData().getUserAlias()), closeSoftKeyboard());
         onView(withId(R.id.mail_order_button)).perform(click());
+
+    }
+
+    @Test
+    public void testInvalidEspressoShots() {
+        // UI Actions
+        onView(withId(R.id.close_button)).perform(click());
+        onView(ViewMatchers.withId(R.id.less_espresso)).perform(click());
+        onView(withText("You can't order less than zero espresso shots")).inRoot(withDecorView(not(is(mActivityRule.getActivity().getWindow().getDecorView())))).check(matches(isDisplayed()));
+    }
+
+    @Test
+    public void testInvalidEspressoShotsSubmit() {
+        // UI Actions
+        onView(withId(R.id.close_button)).perform(click());
+        // Add order for confirmation
+        onView(withId(R.id.review_order_button)).perform(scrollTo()).perform(click());
+        onView(withText("A minimum of 1 Espresso shot is required for each order")).inRoot(withDecorView(not(is(mActivityRule.getActivity().getWindow().getDecorView())))).check(matches(isDisplayed()));
 
     }
 
